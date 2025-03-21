@@ -1,20 +1,40 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { AppLayoutComponent } from "./layout/app.layout.component";
+import { AppLayoutComponent } from './layout/app.layout.component';
 
 @NgModule({
     imports: [
-        RouterModule.forRoot([
+        RouterModule.forRoot(
+            [
+                { path: '', redirectTo: 'auth', pathMatch: 'full'},
+                {
+                    path: '',
+                    component: AppLayoutComponent,
+                    children: [
+                        {
+                            path: '',
+                            loadChildren: () =>
+                                import(
+                                    './view/components/dashboard/dashboard.module'
+                                ).then((m) => m.DashboardModule),
+                        },
+                    ],
+                },
+                {
+                    path: 'auth',
+                    loadChildren: () =>
+                        import('./view/components/auth/auth.module').then(
+                            (m) => m.AuthModule
+                        ),
+                },
+            ],
             {
-                path: '', component: AppLayoutComponent,
-                children: [
-                    { path: '', loadChildren: () => import('./view/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
-                ]
-            },
-            { path: 'auth', loadChildren: () => import('./view/components/auth/auth.module').then(m => m.AuthModule) },
-        ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
+                scrollPositionRestoration: 'enabled',
+                anchorScrolling: 'enabled',
+                onSameUrlNavigation: 'reload',
+            }
+        ),
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
