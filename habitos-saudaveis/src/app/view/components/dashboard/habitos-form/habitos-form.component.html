@@ -1,0 +1,36 @@
+<p-toast position="bottom-center"/>
+
+<p-card header={{header}}>
+    <form class="grid" [formGroup]="habitoForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-column gap-2 col-12">
+            <label for="nomeHabito">Título</label>
+            <input pInputText id="nomeHabito" formControlName="nomeHabito" />
+        </div>
+
+        <div class="flex flex-column gap-2 col-12 md:col-6">
+            <label for="frequencia">Frequência</label>
+            <p-dropdown
+                formControlName="frequencia"
+                [options]="frequenciaOpcoes"
+                optionLabel="value"
+                optionValue="value"
+            />
+        </div>
+
+        <div class="flex flex-column gap-2 col-12 md:col-6">
+            <label for="periodo">Período</label>
+            <p-dropdown
+                formControlName="periodo"
+                [options]="periodoOpcoes"
+                optionLabel="value"
+                optionValue="value"
+            />
+        </div>
+
+        <div class="col-12 flex flex-row justify-content-end gap-2">
+            <p-button class="align-self-end" [outlined]="true" severity="secondary" label="Cancelar" (click)="voltar()"/>
+            <p-button class="align-self-end" label="Salvar" type="submit" [disabled]="!habitoForm.valid"/>
+        </div>
+    </form>
+
+</p-card>

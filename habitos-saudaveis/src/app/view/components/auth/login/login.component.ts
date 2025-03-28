@@ -1,23 +1,38 @@
 import { Component } from '@angular/core';
+import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: []
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styles: [
+        `
+            :host ::ng-deep .pi-eye,
+            :host ::ng-deep .pi-eye-slash {
+                transform: scale(1.6);
+                margin-right: 1rem;
+                color: var(--primary-color) !important;
+            }
+
+            :host ::ng-deep {
+                .p-button,
+                .p-password,
+                label,
+                input {
+                    width: 100%;
+                }
+            }
+        `,
+    ],
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
-  rememberMe: boolean = false;
+    valCheck: string[] = ['remember'];
 
-  onLogin() {
-    if (!this.email || !this.password) {
-      alert('Por favor, preencha todos os campos.');
-      return;
+    password!: string;
+
+    constructor(public layoutService: LayoutService, private router: Router) {}
+
+    login() {
+        this.router.navigate(['dashboard']);
     }
-
-    console.log('Email:', this.email);
-    console.log('Senha:', this.password);
-    console.log('Lembrar-me:', this.rememberMe);
-  }
 }
