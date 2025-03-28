@@ -5,6 +5,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-signup',
@@ -15,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
         FormsModule,
         PasswordModule,
         InputTextModule,
+        RouterModule
     ],
     templateUrl: './signup.component.html',
     styleUrl: './signup.component.scss',

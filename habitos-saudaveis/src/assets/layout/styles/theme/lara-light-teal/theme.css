@@ -38,7 +38,7 @@
   --content-padding: 1.25rem;
   --inline-spacing: 0.5rem;
   --border-radius: 6px;
-  --surface-ground: #f9fafb;
+  --surface-ground: #f3f3f3; /* #f9fafb; */
   --surface-section: #ffffff;
   --surface-card: #ffffff;
   --surface-overlay: #ffffff;
