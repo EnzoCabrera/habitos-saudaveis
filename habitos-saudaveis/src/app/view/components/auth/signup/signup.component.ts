@@ -5,7 +5,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-signup',
@@ -26,5 +26,9 @@ export class SignupComponent {
 
     password!: string;
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(public layoutService: LayoutService, private router: Router) {}
+
+    signup() {
+        this.router.navigate(['dashboard']);
+    }
 }

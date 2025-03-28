@@ -12,7 +12,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                     component: AppLayoutComponent,
                     children: [
                         {
-                            path: '',
+                            path: 'dashboard',
                             loadChildren: () =>
                                 import(
                                     './view/components/dashboard/dashboard.module'
