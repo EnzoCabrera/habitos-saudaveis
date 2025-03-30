@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService} from '../services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -26,13 +26,25 @@ import { Router } from '@angular/router';
     ],
 })
 export class LoginComponent {
-    valCheck: string[] = ['remember'];
+    email: string = '';
+    senha: string = '';
 
-    password!: string;
-
-    constructor(public layoutService: LayoutService, private router: Router) {}
+    constructor(private AuthService: AuthService, private router: Router) {
+    }
 
     login() {
-        this.router.navigate(['dashboard']);
+        const userData = {email: this.email, senha: this.senha};
+
+        this.AuthService.login(userData).subscribe({
+            next: response => {
+                console.log('Login realizado com sucesso', response);
+                console.log(response);
+                localStorage.setItem('token', response.token);
+                this.router.navigate(['dashboard']); // Redireciona após login
+            },
+            error: err => {
+                console.error('Erro ao realizar login', err);
+            }
+        });
     }
 }
