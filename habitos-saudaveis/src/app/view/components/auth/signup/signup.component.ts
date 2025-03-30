@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
-import { InputTextModule } from 'primeng/inputtext';
-import { Router, RouterModule } from '@angular/router';
+import {Component} from '@angular/core';
+import {Router, RouterModule} from '@angular/router';
+import {AuthService} from '../services/auth.service';
+import {ButtonModule} from 'primeng/button';
+import {CheckboxModule} from 'primeng/checkbox';
+import {FormsModule} from '@angular/forms';
+import {PasswordModule} from 'primeng/password';
+import {InputTextModule} from 'primeng/inputtext';
 
 @Component({
     selector: 'app-signup',
@@ -19,16 +19,27 @@ import { Router, RouterModule } from '@angular/router';
         RouterModule
     ],
     templateUrl: './signup.component.html',
-    styleUrl: './signup.component.scss',
+    styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-    valCheck: string[] = ['remember'];
+    nome: string = '';
+    email: string = '';
+    senha: string = '';
 
-    password!: string;
-
-    constructor(public layoutService: LayoutService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router) {
+    }
 
     signup() {
-        this.router.navigate(['dashboard']);
+        const userData = {nome: this.nome, email: this.email, senha: this.senha};
+
+        this.authService.signup(userData).subscribe({
+            next: response => {
+                console.log('Cadastro realizado com sucesso', response);
+                this.router.navigate(['auth/login']); // Redireciona após cadastro
+            },
+            error: err => {
+                console.error('Erro ao realizar cadastro', err);
+            }
+        });
     }
 }
