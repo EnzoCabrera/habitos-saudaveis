@@ -1,6 +1,22 @@
 # Habit Tracker
 Este projeto é uma aplicação web do tipo Single-Page Aplication (SPA) desenvolvida utilizando o framework Angular. O projeto foi criado como parte de um projeto acadêmico para a disciplina de Gestão e Qualidade de Software. O objetivo principal é gerenciar usuários, hábitos e registros de hábitos.
 
+## Grupo
+- **Scrum Master**:
+    - Enzo Nascimento Cabrera - 202320732
+- **Front-end**:
+    - William Menezes Damascena - 202512580
+    - Lucas Alves Pereira - 82411796 
+    - Kauan Lacerda e Silva - 202412124
+- **Back-end**:
+    - Felipe Couto - 823127403 
+    - Geziel Oliveira Silva - 202313071
+- **Documentação**:
+    - Lorhan de Souza Mendes Ferreira - 1262323379
+- **QA**:
+    - João Vitor Mendes Da Silva - 202411713
+    - Mateus Ramos Neres - 824136360
+
 ## Tecnologias Utilizadas
 - TypeScript
 - Angular
