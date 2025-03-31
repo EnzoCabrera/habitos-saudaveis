@@ -3,11 +3,14 @@ import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { HabitosFormComponent } from './habitos-form/habitos-form.component';
 import { habitoResolver } from './guards/habito.resolver';
+import { ListarHabitoComponent } from './listar-habito/listar-habito.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
-            { path: '', component: DashboardComponent },
+            //{ path: '', component: DashboardComponent },
+            { path: '', redirectTo: 'listar-habito', pathMatch: 'full' },
+            { path: 'listar-habito', component: ListarHabitoComponent },
             {
                 path: 'novo-habito',
                 component: HabitosFormComponent,

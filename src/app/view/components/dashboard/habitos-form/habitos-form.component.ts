@@ -13,6 +13,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { Habito } from '../model/habito';
 import { MessageService } from 'primeng/api';
+import { HabitoService } from '../service/habito.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
     selector: 'app-habitos-form',
@@ -24,10 +26,11 @@ import { MessageService } from 'primeng/api';
         DropdownModule,
         ReactiveFormsModule,
         ToastModule,
+        ProgressSpinnerModule
     ],
     templateUrl: './habitos-form.component.html',
     styleUrl: './habitos-form.component.scss',
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class HabitosFormComponent {
     header = '';
@@ -53,11 +56,12 @@ export class HabitosFormComponent {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private habitoService: HabitoService
     ) {
         const habito: Habito = this.route.snapshot.data['habito'];
 
-        if (habito._id == null) {
+        if (habito.id == null) {
             this.header = 'Novo hábito';
         } else {
             this.header = 'Editar hábito';
@@ -69,7 +73,25 @@ export class HabitosFormComponent {
     }
 
     onSubmit() {
-        this.messageService.add({severity: 'success', summary: 'Sucesso', detail: 'Hábito criado!'})
-        console.log(this.habitoForm.value);
+        this.habitoService.save(this.habitoForm.value).subscribe({
+            next: (response) => {
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Sucesso',
+                    detail: 'Hábito criado!',
+                });
+                console.log(this.habitoForm.value);
+                console.log('Hábito criado com sucesso.', response);
+                this.router.navigate(['dashboard']);
+            },
+            error: (err) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erro',
+                    detail: 'Erro ao cadastrar hábito.',
+                });
+                console.log('Erro ao realizar cadastro', err);
+            },
+        });
     }
 }

@@ -11,10 +11,12 @@ export const habitoResolver: ResolveFn<Habito> = (route, state) => {
         return habitoService.loadById(route.params['id']);
     }
     return of({
-        _id: null,
-        nomeHabito: '',
+        id: null,
+        nome_habito: '',
         frequencia: '',
         periodo: '',
-        userId: null,
+        completed: '',
+        criado_em: '',
+        user: null,
     });
 };

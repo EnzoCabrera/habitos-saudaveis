@@ -1,7 +1,9 @@
 export interface Habito {
-    _id: number,
-    nomeHabito: string,
+    id: number,
+    nome_habito: string,
     frequencia: string,
     periodo: string,
-    userId: number
+    completed: string,
+    criado_em: string,
+    user?: any
 }

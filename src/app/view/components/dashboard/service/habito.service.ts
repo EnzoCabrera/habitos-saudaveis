@@ -7,12 +7,12 @@ import { Habito } from '../model/habito';
     providedIn: 'root',
 })
 export class HabitoService {
-    private readonly _baseUrl: string = 'http://localhost:3000';
+    private readonly _baseUrl: string = 'http://localhost:8080/habits';
 
     constructor(private http: HttpClient) {}
 
     list(): Observable<Habito[]> {
-        return this.http.get<Habito[]>(`${this._baseUrl}/habits`).pipe(first());
+        return this.http.get<Habito[]>(`${this._baseUrl}/list`).pipe(first());
     }
 
     loadById(id: number): Observable<Habito> {
@@ -22,7 +22,7 @@ export class HabitoService {
     }
 
     save(habito: Partial<Habito>): Observable<Habito> {
-        if (habito._id) {
+        if (habito.id) {
             return this.update(habito);
         }
         return this.create(habito);
@@ -34,13 +34,13 @@ export class HabitoService {
 
     private create(habito: Partial<Habito>): Observable<Habito> {
         return this.http
-            .post<Habito>(`${this._baseUrl}/habits/create`, habito)
+            .post<Habito>(`${this._baseUrl}/create`, habito)
             .pipe(first());
     }
 
     private update(habito: Partial<Habito>): Observable<Habito> {
         return this.http
-            .put<Habito>(`${this._baseUrl}/${habito._id}`, habito)
+            .put<Habito>(`${this._baseUrl}/${habito.id}`, habito)
             .pipe(first());
     }
 }
