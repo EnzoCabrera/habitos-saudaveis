@@ -3,13 +3,13 @@ import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { Habito } from '../model/habito';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToolbarModule } from 'primeng/toolbar';
 import { HabitoService } from '../service/habito.service';
-import { catchError, Observable, of } from 'rxjs';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
     selector: 'app-listar-habito',
@@ -21,10 +21,11 @@ import { catchError, Observable, of } from 'rxjs';
         TableModule,
         ButtonModule,
         PaginatorModule,
+        ConfirmDialogModule,
     ],
     templateUrl: './listar-habito.component.html',
     styleUrl: './listar-habito.component.scss',
-    providers: [MessageService],
+    providers: [MessageService, ConfirmationService],
 })
 export class ListarHabitoComponent implements OnInit {
     habitos!: Habito[];
@@ -34,10 +35,15 @@ export class ListarHabitoComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private messageService: MessageService,
-        private habitoService: HabitoService
+        private habitoService: HabitoService,
+        private confirmationService: ConfirmationService
     ) {}
 
     ngOnInit() {
+        this.carregarDados();
+    }
+
+    carregarDados() {
         this.habitoService.list().subscribe((habits) => {
             const habitosArray = this.valuesToArray(habits);
 
@@ -54,7 +60,37 @@ export class ListarHabitoComponent implements OnInit {
         this.router.navigate(['dashboard/novo-habito']);
     }
 
-    deletarHabito() {}
+    deletarHabito(id: any) {
+        this.habitoService.remove(id).subscribe({
+            next: (res) => {
+                console.log(res);
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Confirmed',
+                    detail: 'Hábito deletado com sucesso',
+                });
+                this.carregarDados();
+            },
+            error: (err) => console.log(err),
+        });
+    }
+
+    confirmarDelecao(event: Event, id: any) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Tem certeza que deseja deletar este hábito?',
+            header: 'Deletar hábito',
+            icon: 'pi pi-exclamation-triangle',
+            acceptIcon: 'none',
+            rejectIcon: 'none',
+            rejectButtonStyleClass: 'p-button-text',
+            accept: () => {
+                this.deletarHabito(id);
+            },
+            reject: () => {
+            },
+        });
+    }
 
     valuesToArray(obj) {
         return Object.keys(obj).map(function (key) {

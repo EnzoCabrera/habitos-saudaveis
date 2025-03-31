@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-
+<p-confirmDialog />
 <p-card>
     <div class="flex flex-row justify-content-between align-items-end mb-2">
         <h4 class="font-bold text-600">Meus hábitos</h4>
@@ -31,12 +31,12 @@
                 <th style="width: 20%">Ações</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-habitos let-ri="rowIndex">
+        <ng-template pTemplate="body" let-habito let-ri="rowIndex">
             <tr>
-                <td>{{ habitos.id }}</td>
-                <td>{{ habitos.nome_habito }}</td>
-                <td>{{ habitos.frequencia }}</td>
-                <td>{{ habitos.periodo }}</td>
+                <td>{{ habito.id }}</td>
+                <td>{{ habito.nome_habito }}</td>
+                <td>{{ habito.frequencia }}</td>
+                <td>{{ habito.periodo }}</td>
                 <td>
                     <button
                         pButton
@@ -44,7 +44,7 @@
                         type="button"
                         icon="pi pi-pencil"
                         class="p-button-rounded p-button-text"
-                        (click)="editarHabito(habitos.id)"
+                        (click)="editarHabito(habito.id)"
                     ></button>
                     <button
                         pButton
@@ -53,6 +53,7 @@
                         icon="pi pi-trash"
                         class="p-button-rounded p-button-text"
                         severity="danger"
+                        (click)="confirmarDelecao($event, habito.id)"
                     ></button>
                 </td>
             </tr>

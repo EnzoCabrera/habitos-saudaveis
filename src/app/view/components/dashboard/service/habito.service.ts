@@ -29,7 +29,7 @@ export class HabitoService {
     }
 
     remove(id: string) {
-        return this.http.delete(`${this._baseUrl}/habits/${id}`).pipe(first());
+        return this.http.delete(`${this._baseUrl}/delete/${id}`).pipe(first());
     }
 
     private create(habito: Partial<Habito>): Observable<Habito> {
