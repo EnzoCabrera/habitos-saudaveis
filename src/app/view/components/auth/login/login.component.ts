@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-login',
@@ -24,27 +25,36 @@ import {AuthService} from '../services/auth.service';
             }
         `,
     ],
+    providers: [MessageService],
 })
 export class LoginComponent {
     email: string = '';
     senha: string = '';
 
-    constructor(private AuthService: AuthService, private router: Router) {
-    }
+    constructor(
+        private AuthService: AuthService,
+        private router: Router,
+        private messageService: MessageService
+    ) {}
 
     login() {
-        const userData = {email: this.email, senha: this.senha};
+        const userData = { email: this.email, senha: this.senha };
 
         this.AuthService.login(userData).subscribe({
-            next: response => {
+            next: (response) => {
                 console.log('Login realizado com sucesso', response);
                 console.log(response);
                 localStorage.setItem('token', response.token);
                 this.router.navigate(['dashboard']); // Redireciona após login
             },
-            error: err => {
+            error: (err) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erro',
+                    detail: 'Email ou senha incorretos!',
+                });
                 console.error('Erro ao realizar login', err);
-            }
+            },
         });
     }
 }
