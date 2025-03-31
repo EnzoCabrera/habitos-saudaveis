@@ -36,14 +36,14 @@ export class SignupComponent {
     email: string = '';
     senha: string = '';
 
-    usuarioForm = new FormGroup({
+    /* usuarioForm = new FormGroup({
         nome: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
         senha: new FormControl('', [
             Validators.required,
             Validators.minLength(8),
         ]),
-    });
+    }); */
 
     constructor(
         private authService: AuthService,
@@ -52,7 +52,13 @@ export class SignupComponent {
     ) {}
 
     signup() {
-        this.authService.signup(this.usuarioForm.value).subscribe({
+        const userData = {
+            nome: this.nome,
+            email: this.email,
+            senha: this.senha,
+        };
+
+        this.authService.signup(userData).subscribe({
             next: (response) => {
                 this.messageService.add({
                     severity: 'success',
@@ -60,7 +66,9 @@ export class SignupComponent {
                     detail: response,
                 });
                 console.log('Cadastro realizado com sucesso', response);
-                this.router.navigate(['auth/login']); // Redireciona após cadastro
+                setTimeout(() => {
+                    this.router.navigate(['auth/login']); // Redireciona após cadastro
+                }, 1000);
             },
             error: (err) => {
                 this.messageService.add({
