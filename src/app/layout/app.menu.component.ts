@@ -1,6 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import { AuthService } from '../view/components/auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-menu',
@@ -10,7 +12,11 @@ export class AppMenuComponent implements OnInit {
     model: any[] = [];
     bottomModel: any[] = [];
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(
+        public layoutService: LayoutService,
+        private authService: AuthService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.model = [
@@ -54,5 +60,14 @@ export class AppMenuComponent implements OnInit {
 
     logout() {
         localStorage.removeItem('token');
+    }
+
+    deletarConta() {
+        this.authService.deletarConta(this.authService.getToken()).subscribe({
+            next: (response) => {
+                this.logout();
+                this.router.navigate(['/signup']);
+            },
+        });
     }
 }

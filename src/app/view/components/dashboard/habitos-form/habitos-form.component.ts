@@ -26,7 +26,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         DropdownModule,
         ReactiveFormsModule,
         ToastModule,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
     ],
     templateUrl: './habitos-form.component.html',
     styleUrl: './habitos-form.component.scss',
@@ -75,14 +75,18 @@ export class HabitosFormComponent {
     onSubmit() {
         this.habitoService.save(this.habitoForm.value).subscribe({
             next: (response) => {
+                console.log(this.habitoForm.value);
+
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Sucesso',
                     detail: 'Hábito criado!',
                 });
-                console.log(this.habitoForm.value);
                 console.log('Hábito criado com sucesso.', response);
-                this.router.navigate(['dashboard']);
+
+                setTimeout(() => {
+                    this.router.navigate(['dashboard']);
+                }, 1000);
             },
             error: (err) => {
                 this.messageService.add({

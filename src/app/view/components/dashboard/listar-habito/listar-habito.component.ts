@@ -82,8 +82,10 @@ export class ListarHabitoComponent implements OnInit {
             header: 'Deletar hábito',
             icon: 'pi pi-exclamation-triangle',
             acceptIcon: 'none',
+            acceptLabel: 'Sim',
             rejectIcon: 'none',
-            rejectButtonStyleClass: 'p-button-text',
+            rejectLabel: 'Não',
+            rejectButtonStyleClass: 'p-button-outlined',
             accept: () => {
                 this.deletarHabito(id);
             },
