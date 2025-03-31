@@ -8,6 +8,12 @@ import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import {
+    FormControl,
+    FormGroup,
+    Validators,
+    ReactiveFormsModule,
+} from '@angular/forms';
 @Component({
     selector: 'app-signup',
     standalone: true,
@@ -19,6 +25,7 @@ import { ToastModule } from 'primeng/toast';
         InputTextModule,
         RouterModule,
         ToastModule,
+        ReactiveFormsModule,
     ],
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.scss'],
@@ -29,6 +36,15 @@ export class SignupComponent {
     email: string = '';
     senha: string = '';
 
+    usuarioForm = new FormGroup({
+        nome: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        senha: new FormControl('', [
+            Validators.required,
+            Validators.minLength(8),
+        ]),
+    });
+
     constructor(
         private authService: AuthService,
         private router: Router,
@@ -36,13 +52,7 @@ export class SignupComponent {
     ) {}
 
     signup() {
-        const userData = {
-            nome: this.nome,
-            email: this.email,
-            senha: this.senha,
-        };
-
-        this.authService.signup(userData).subscribe({
+        this.authService.signup(this.usuarioForm.value).subscribe({
             next: (response) => {
                 this.messageService.add({
                     severity: 'success',

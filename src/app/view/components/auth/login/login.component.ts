@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MessageService } from 'primeng/api';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -31,16 +32,22 @@ export class LoginComponent {
     email: string = '';
     senha: string = '';
 
+    usuarioForm = new FormGroup({
+        email: new FormControl('', [Validators.required, Validators.email]),
+        senha: new FormControl('', [
+            Validators.required,
+            Validators.minLength(8),
+        ]),
+    });
+
     constructor(
-        private AuthService: AuthService,
+        private authService: AuthService,
         private router: Router,
         private messageService: MessageService
     ) {}
 
     login() {
-        const userData = { email: this.email, senha: this.senha };
-
-        this.AuthService.login(userData).subscribe({
+        this.authService.login(this.usuarioForm.value).subscribe({
             next: (response) => {
                 console.log('Login realizado com sucesso', response);
                 console.log(response);
