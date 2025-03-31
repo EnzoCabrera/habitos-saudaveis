@@ -17,7 +17,7 @@ export class HabitoService {
 
     loadById(id: number): Observable<Habito> {
         return this.http
-            .get<Habito>(`${this._baseUrl}/habits/${id}`)
+            .get<Habito>(`${this._baseUrl}/${id}`)
             .pipe(first());
     }
 
@@ -40,7 +40,7 @@ export class HabitoService {
 
     private update(habito: Partial<Habito>): Observable<Habito> {
         return this.http
-            .put<Habito>(`${this._baseUrl}/${habito.id}`, habito)
+            .put<Habito>(`${this._baseUrl}/update/${habito.id}`, habito)
             .pipe(first());
     }
 }

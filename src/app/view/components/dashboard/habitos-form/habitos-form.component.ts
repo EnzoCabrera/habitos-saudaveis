@@ -48,6 +48,7 @@ export class HabitosFormComponent {
     ];
 
     habitoForm = new FormGroup({
+        id: new FormControl(''),
         nomeHabito: new FormControl('', [Validators.required]),
         frequencia: new FormControl('', [Validators.required]),
         periodo: new FormControl('', [Validators.required]),
@@ -66,6 +67,13 @@ export class HabitosFormComponent {
         } else {
             this.header = 'Editar hábito';
         }
+
+        this.habitoForm.setValue({
+            id: habito.id,
+            nomeHabito: habito.nome_habito,
+            frequencia: habito.frequencia,
+            periodo: habito.periodo
+        })
     }
 
     voltar() {

@@ -1,5 +1,5 @@
 export interface Habito {
-    id: number,
+    id: string,
     nome_habito: string,
     frequencia: string,
     periodo: string,
