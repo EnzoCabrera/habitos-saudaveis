@@ -16,4 +16,8 @@ export class AppTopBarComponent {
     @ViewChild('topbarmenu') menu!: ElementRef;
 
     constructor(public layoutService: LayoutService) {}
+
+    logout() {
+        localStorage.removeItem('token');
+    }
 }

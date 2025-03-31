@@ -43,9 +43,16 @@ export class AppMenuComponent implements OnInit {
                         label: 'Sair',
                         icon: 'pi pi-sign-out',
                         routerLink: ['auth/login'],
+                        command: () => {
+                            this.logout();
+                        },
                     },
                 ],
             },
         ];
+    }
+
+    logout() {
+        localStorage.removeItem('token');
     }
 }
