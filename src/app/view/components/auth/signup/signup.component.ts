@@ -63,7 +63,7 @@ export class SignupComponent {
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Sucesso',
-                    detail: response,
+                    detail: response.message,
                 });
                 console.log('Cadastro realizado com sucesso', response);
                 setTimeout(() => {

@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { HabitosFormComponent } from './habitos-form/habitos-form.component';
-import { habitoResolver } from './guards/habito.resolver';
+
 import { ListarHabitoComponent } from './listar-habito/listar-habito.component';
+import { habitoResolver } from 'src/app/guards/habito.resolver';
 
 @NgModule({
     imports: [

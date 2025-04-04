@@ -1,8 +1,9 @@
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
-import { HabitoService } from '../service/habito.service';
-import { Habito } from '../model/habito';
+
 import { of } from 'rxjs';
+import { Habito } from '../view/components/dashboard/models/habito';
+import { HabitoService } from '../view/components/dashboard/services/habito.service';
 
 export const habitoResolver: ResolveFn<Habito> = (route, state) => {
     const habitoService = inject(HabitoService);

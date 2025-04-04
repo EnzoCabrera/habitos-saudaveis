@@ -1,12 +1,14 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { authGuard } from './guards/auth.guard';
+
 
 @NgModule({
     imports: [
         RouterModule.forRoot(
             [
-                { path: '', redirectTo: 'auth', pathMatch: 'full'},
+                { path: '', redirectTo: 'auth', pathMatch: 'full' },
                 {
                     path: '',
                     component: AppLayoutComponent,
@@ -19,6 +21,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                                 ).then((m) => m.DashboardModule),
                         },
                     ],
+                    canActivate: [authGuard],
                 },
                 {
                     path: 'auth',

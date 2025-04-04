@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
-import { Habito } from '../model/habito';
+import { Habito } from '../models/habito';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToolbarModule } from 'primeng/toolbar';
-import { HabitoService } from '../service/habito.service';
+import { HabitoService } from '../services/habito.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
