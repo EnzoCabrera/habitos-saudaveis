@@ -12,8 +12,6 @@ export interface UserData {
 })
 export class AuthService {
     private readonly _baseUrl: string = 'http://localhost:8080/auth';
-    private sessionToken: string = '';
-    private isAuthenticated: boolean = false;
 
     constructor(private http: HttpClient) {}
 
@@ -41,7 +39,6 @@ export class AuthService {
     }
 
     logout() {
-        this.isAuthenticated = false;
         this.deleteToken();
     }
 
@@ -50,18 +47,11 @@ export class AuthService {
     }
 
     getToken() {
-        return (this.sessionToken = localStorage.getItem('token'));
+        return localStorage.getItem('token');
     }
 
     deleteToken() {
         localStorage.removeItem('token');
-    }
-
-    setIsAuthenticated() {
-        this.isAuthenticated = !this.isAuthenticated;
-    }
-    getIsAuthenticated() {
-        return this.isAuthenticated;
     }
 
     deletarConta(token) {

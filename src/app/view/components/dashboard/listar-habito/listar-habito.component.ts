@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToolbarModule } from 'primeng/toolbar';
 import { HabitoService } from '../services/habito.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
     selector: 'app-listar-habito',
@@ -22,6 +23,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         ButtonModule,
         PaginatorModule,
         ConfirmDialogModule,
+        ProgressSpinnerModule
     ],
     templateUrl: './listar-habito.component.html',
     styleUrl: './listar-habito.component.scss',

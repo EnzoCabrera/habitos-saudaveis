@@ -24,14 +24,14 @@ export class AppTopBarComponent {
     ) {}
 
     logout() {
-        localStorage.removeItem('token');
+        this.authService.logout();
     }
 
     deletarConta() {
         this.authService.deletarConta(this.authService.getToken()).subscribe({
             next: (response) => {
-                this.logout();
-                this.router.navigate(['/signup']);
+                this.authService.logout();
+                this.router.navigate(['auth/signup']);
             },
         });
     }

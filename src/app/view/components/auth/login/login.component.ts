@@ -30,6 +30,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
     email: string = '';
     senha: string = '';
+    loading: boolean = false;
 
     usuarioForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
@@ -47,33 +48,16 @@ export class LoginComponent {
         this.authService.deleteToken();
     }
 
-    /* login() {
-        this.authService.login(this.usuarioForm.value).subscribe({
-            next: (response) => {
-                console.log('Login realizado com sucesso', response);
-                console.log(response);
-                localStorage.setItem('token', response.token);
-                this.router.navigate(['dashboard']); // Redireciona após login
-            },
-            error: (err) => {
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Erro',
-                    detail: 'Email ou senha incorretos!',
-                });
-                console.error('Erro ao realizar login', err);
-            },
-        });
-    } */
-
     login() {
+        this.loading = true;
+
         this.authService.login(this.usuarioForm.value).subscribe(
             (result) => {
                 this.authService.setToken(result.token);
-
-                this.authService.setIsAuthenticated();
-
-                this.router.navigate(['dashboard']); // Redireciona após login
+                setTimeout(() => {
+                    this.loading = false;
+                    this.router.navigate(['dashboard']); // Redireciona após login
+                }, 200);
             },
             (err) => {
                 this.messageService.add({

@@ -7,6 +7,15 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-menu',
     templateUrl: './app.menu.component.html',
+    styles: [
+        `:host ::ng-deep .layout-menu {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+        `,
+    ],
 })
 export class AppMenuComponent implements OnInit {
     model: any[] = [];
@@ -59,14 +68,14 @@ export class AppMenuComponent implements OnInit {
     }
 
     logout() {
-        localStorage.removeItem('token');
+        this.authService.logout();
     }
 
     deletarConta() {
         this.authService.deletarConta(this.authService.getToken()).subscribe({
             next: (response) => {
-                this.logout();
-                this.router.navigate(['/signup']);
+                this.authService.logout();
+                this.router.navigate(['auth/signup']);
             },
         });
     }

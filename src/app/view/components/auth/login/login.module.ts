@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
@@ -18,8 +19,9 @@ import { LoginComponent } from './login.component';
         FormsModule,
         PasswordModule,
         ToastModule,
-        ReactiveFormsModule
+        ProgressSpinnerModule,
+        ReactiveFormsModule,
     ],
-    declarations: [LoginComponent]
+    declarations: [LoginComponent],
 })
-export class LoginModule { }
+export class LoginModule {}

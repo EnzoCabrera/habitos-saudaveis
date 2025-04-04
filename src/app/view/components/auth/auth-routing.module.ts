@@ -24,7 +24,7 @@ import { SignupComponent } from './signup/signup.component';
                     import('./login/login.module').then((m) => m.LoginModule),
             },
             { path: 'signup', component: SignupComponent },
-            { path: '', redirectTo: 'signup', pathMatch: 'full'},
+            { path: '', redirectTo: 'login', pathMatch: 'full'},
             { path: '**', redirectTo: '/notfound' },
         ]),
     ],

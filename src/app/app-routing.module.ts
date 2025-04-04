@@ -8,7 +8,7 @@ import { authGuard } from './guards/auth.guard';
     imports: [
         RouterModule.forRoot(
             [
-                { path: '', redirectTo: 'auth', pathMatch: 'full' },
+                { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
                 {
                     path: '',
                     component: AppLayoutComponent,
@@ -19,7 +19,7 @@ import { authGuard } from './guards/auth.guard';
                                 import(
                                     './view/components/dashboard/dashboard.module'
                                 ).then((m) => m.DashboardModule),
-                        },
+                        }
                     ],
                     canActivate: [authGuard],
                 },

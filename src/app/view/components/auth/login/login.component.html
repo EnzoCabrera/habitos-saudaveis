@@ -1,5 +1,21 @@
 <p-toast position="bottom-center" />
 
+@if(loading) {
+<p-progressSpinner
+    styleClass="w-4rem h-4rem"
+    style="
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        z-index: 5;
+        transform: translate(50%, 50%);
+    "
+    strokeWidth="8"
+    fill="var(--surface-ground)"
+    animationDuration=".5s"
+/>
+}
+
 <div
     class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
 >
