@@ -23,6 +23,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
                     width: 100%;
                 }
             }
+
+            :host ::ng-deep small {
+                min-width: 299.05px !important;
+            }
         `,
     ],
     providers: [MessageService],
@@ -65,8 +69,28 @@ export class LoginComponent {
                     summary: 'Erro',
                     detail: 'Email ou senha incorretos!',
                 });
+                this.loading = false;
                 console.error('Erro ao realizar login', err);
             }
         );
+    }
+
+    getErrorMessage(fieldName: string) {
+        const field = this.usuarioForm.get(fieldName);
+
+        if (field?.hasError('required')) {
+            return 'Campo obrigatório';
+        }
+        if (field?.hasError('minlength')) {
+            const requiredLength = field.errors
+                ? field.errors['minlength']['requiredLength']
+                : 8;
+            return `Tamanho mínimo precisa ser de ${requiredLength} caracteres`;
+        }
+        if (field?.hasError('email')) {
+            return 'E-mail inválido';
+        }
+
+        return 'Campo inválido';
     }
 }

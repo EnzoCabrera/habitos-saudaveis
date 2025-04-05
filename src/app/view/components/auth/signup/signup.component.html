@@ -1,4 +1,21 @@
-<p-toast position="bottom-center"/>
+<p-toast position="bottom-center" />
+
+@if(loading) {
+<p-progressSpinner
+    styleClass="w-4rem h-4rem"
+    style="
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        z-index: 5;
+        transform: translate(50%, 50%);
+    "
+    strokeWidth="8"
+    fill="var(--surface-ground)"
+    animationDuration=".5s"
+/>
+}
+
 <div
     class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
 >
@@ -16,24 +33,30 @@
                 </div>
             </div>
 
-            <!-- <form [formGroup]="usuarioForm" (ngSubmit)="signup()" novalidate> -->
-                <div>
+            <form [formGroup]="usuarioForm" (ngSubmit)="signup()" novalidate>
                 <label
                     class="block text-900 text-xl font-medium mb-2"
                     for="nome"
                     >Nome</label
                 >
-                <!-- <input
+                <input
                     formControlName="nome"
                     id="nome"
                     type="text"
                     placeholder="Seu nome completo"
                     pInputText
-                    class="w-full mb-5"
+                    class="w-full"
                     style="padding: 1rem"
                     required
-                /> -->
-                <input
+                />
+                @if (usuarioForm.get('nome').invalid &&
+                (usuarioForm.get('nome').dirty ||
+                usuarioForm.get('nome').touched) ) {
+                <small class="text-red-500 mt-2 block" id="nome">{{
+                    getErrorMessage("nome")
+                }}</small>
+                }
+                <!-- <input
                     id="nome"
                     type="text"
                     [(ngModel)]="nome"
@@ -42,24 +65,32 @@
                     class="w-full mb-5"
                     style="padding: 1rem"
                     required
-                />
+                /> -->
 
                 <label
-                    class="block text-900 text-xl font-medium mb-2"
+                    class="block text-900 text-xl font-medium mb-2 mt-5"
                     for="email"
                     >Email</label
                 >
-                <!-- <input
+                <input
                     formControlName="email"
                     type="text"
                     id="email"
                     placeholder="Seu e-mail"
                     pInputText
-                    class="w-full mb-5"
+                    class="w-full"
                     style="padding: 1rem"
                     required
-                /> -->
-                <input
+                />
+                @if (usuarioForm.get('email').invalid &&
+                (usuarioForm.get('email').dirty ||
+                usuarioForm.get('email').touched) ) {
+                <small class="text-red-500 mt-2 block" id="email-error">{{
+                    getErrorMessage("email")
+                }}</small>
+                }
+
+                <!-- <input
                     [(ngModel)]="email"
                     type="text"
                     id="email"
@@ -68,25 +99,31 @@
                     class="w-full mb-5"
                     style="padding: 1rem"
                     required
-                />
+                /> -->
 
                 <label
-                    class="block text-900 font-medium text-xl mb-2"
+                    class="block text-900 font-medium text-xl mb-2 mt-5"
                     for="password1"
                     >Senha</label
                 >
-                <!-- <p-password
+                <p-password
                     id="password1"
                     formControlName="senha"
                     placeholder="Sua senha"
                     [toggleMask]="true"
-                    styleClass="mb-5"
                     inputStyleClass="w-full p-3"
                     [feedback]="false"
                     required
-                ></p-password> -->
+                ></p-password>
+                @if (usuarioForm.get('senha').invalid &&
+                (usuarioForm.get('senha').dirty ||
+                usuarioForm.get('senha').touched) ) {
+                <small class="text-red-500 mt-2 block" id="password1">{{
+                    getErrorMessage("senha")
+                }}</small>
+                }
 
-                <p-password
+                <!-- <p-password
                     id="password1"
                     [(ngModel)]="senha"
                     placeholder="Sua senha"
@@ -95,24 +132,24 @@
                     inputStyleClass="w-full p-3"
                     [feedback]="false"
                     required
-                ></p-password>
+                ></p-password> -->
+
+                <button
+                    pButton
+                    pRipple
+                    label="Cadastrar"
+                    class="w-full mt-5 p-3 text-xl"
+                    type="submit"
+                    [disabled]="!usuarioForm.valid"
+                ></button>
 
                 <!-- <button
                     pButton
                     pRipple
                     label="Cadastrar"
                     class="w-full p-3 text-xl"
-                    type="submit"
-                    [disabled]="!usuarioForm.valid"
-                ></button> -->
-
-                <button
-                    pButton
-                    pRipple
-                    label="Cadastrar"
-                    class="w-full p-3 text-xl"
                     (click)="signup()"
-                ></button>
+                ></button> -->
 
                 <p class="mt-3 text-center">
                     Já tem uma conta?
@@ -122,8 +159,7 @@
                         >Faça login</a
                     >
                 </p>
-            <!-- </form> -->
-                </div>
+            </form>
         </div>
     </div>
 </div>

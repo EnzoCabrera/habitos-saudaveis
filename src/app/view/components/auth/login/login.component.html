@@ -48,6 +48,13 @@
                     style="padding: 1rem"
                     required
                 />
+                @if (usuarioForm.get('email').invalid &&
+                (usuarioForm.get('email').dirty ||
+                usuarioForm.get('email').touched) ) {
+                <small class="text-red-500 mt-2 block" id="email-error">{{
+                    getErrorMessage("email")
+                }}</small>
+                }
 
                 <label
                     for="password"
@@ -63,6 +70,14 @@
                     [feedback]="false"
                     required
                 ></p-password>
+
+                @if (usuarioForm.get('senha').invalid &&
+                (usuarioForm.get('senha').dirty ||
+                usuarioForm.get('senha').touched) ) {
+                <small class="text-red-500 mt-2 block" id="email-error">{{
+                    getErrorMessage("senha")
+                }}</small>
+                }
 
                 <button
                     pButton

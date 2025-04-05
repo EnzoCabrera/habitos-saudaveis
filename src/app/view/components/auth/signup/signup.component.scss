@@ -14,3 +14,6 @@
     }
 }
 
+:host ::ng-deep small {
+    min-width: 299.05px !important;
+}
