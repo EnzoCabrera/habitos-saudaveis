@@ -7,7 +7,7 @@
             <input pInputText id="nomeHabito" formControlName="nomeHabito" />
         </div>
 
-        <div class="flex flex-column gap-2 col-12 md:col-6">
+        <div class="flex flex-column gap-2 col-12 md:col-4">
             <label for="frequencia">Frequência</label>
             <p-dropdown
                 formControlName="frequencia"
@@ -17,12 +17,22 @@
             />
         </div>
 
-        <div class="flex flex-column gap-2 col-12 md:col-6">
+        <div class="flex flex-column gap-2 col-12 md:col-4">
             <label for="periodo">Período</label>
             <p-dropdown
                 formControlName="periodo"
                 [options]="periodoOpcoes"
                 optionLabel="value"
+                optionValue="value"
+            />
+        </div>
+
+        <div class="flex flex-column gap-2 col-12 md:col-4">
+            <label for="completed">Status</label>
+            <p-dropdown
+                formControlName="completed"
+                [options]="statusOpcoes"
+                optionLabel="label"
                 optionValue="value"
             />
         </div>

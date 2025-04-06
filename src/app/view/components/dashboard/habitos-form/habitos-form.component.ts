@@ -35,6 +35,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 export class HabitosFormComponent {
     header = '';
 
+    habito: Habito = null;
+
     frequenciaOpcoes: any[] = [
         { value: 'Diário' },
         { value: 'Semanal' },
@@ -47,11 +49,17 @@ export class HabitosFormComponent {
         { value: 'Noite' },
     ];
 
+    statusOpcoes: any[] = [
+        { value: 'Falso', label: 'Pendente' },
+        { value: 'Verdadeiro', label: 'Concluído' },
+    ];
+
     habitoForm = new FormGroup({
         id: new FormControl(''),
         nomeHabito: new FormControl('', [Validators.required]),
         frequencia: new FormControl('', [Validators.required]),
         periodo: new FormControl('', [Validators.required]),
+        completed: new FormControl('', [Validators.required]),
     });
 
     constructor(
@@ -60,20 +68,21 @@ export class HabitosFormComponent {
         private messageService: MessageService,
         private habitoService: HabitoService
     ) {
-        const habito: Habito = this.route.snapshot.data['habito'];
+        this.habito = this.route.snapshot.data['habito'];
 
-        if (habito.id == null) {
+        if (this.habito.id == null) {
             this.header = 'Novo hábito';
         } else {
             this.header = 'Editar hábito';
         }
 
         this.habitoForm.setValue({
-            id: habito.id,
-            nomeHabito: habito.nome_habito,
-            frequencia: habito.frequencia,
-            periodo: habito.periodo
-        })
+            id: this.habito.id,
+            nomeHabito: this.habito.nome_habito,
+            frequencia: this.habito.frequencia,
+            periodo: this.habito.periodo,
+            completed: this.habito.completed,
+        });
     }
 
     voltar() {
@@ -85,12 +94,21 @@ export class HabitosFormComponent {
             next: (response) => {
                 console.log(this.habitoForm.value);
 
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Sucesso',
-                    detail: 'Hábito criado!',
-                });
-                console.log('Hábito criado com sucesso.', response);
+                if ((this.habito.id = null)) {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Sucesso',
+                        detail: 'Hábito criado!',
+                    });
+                    console.log('Hábito criado com sucesso.', response);
+                } else {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Sucesso',
+                        detail: 'Hábito editado!',
+                    });
+                    console.log('Hábito editado com sucesso.', response);
+                }
 
                 setTimeout(() => {
                     this.router.navigate(['dashboard']);

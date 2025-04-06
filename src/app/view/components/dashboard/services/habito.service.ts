@@ -16,9 +16,7 @@ export class HabitoService {
     }
 
     loadById(id: number): Observable<Habito> {
-        return this.http
-            .get<Habito>(`${this._baseUrl}/${id}`)
-            .pipe(first());
+        return this.http.get<Habito>(`${this._baseUrl}/${id}`).pipe(first());
     }
 
     save(habito: Partial<Habito>): Observable<Habito> {

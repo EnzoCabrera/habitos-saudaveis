@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastModule } from 'primeng/toast';
-import { TableModule } from 'primeng/table';
-import { CardModule } from 'primeng/card';
-import { Habito } from '../models/habito';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { PaginatorModule } from 'primeng/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToolbarModule } from 'primeng/toolbar';
-import { HabitoService } from '../services/habito.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TooltipModule } from 'primeng/tooltip';
+import { Habito } from '../models/habito';
+import { HabitoService } from '../services/habito.service';
+import { StatusPipe } from '../pipes/status.pipe';
 
 @Component({
     selector: 'app-listar-habito',
@@ -23,7 +26,10 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         ButtonModule,
         PaginatorModule,
         ConfirmDialogModule,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
+        TagModule,
+        TooltipModule,
+        StatusPipe,
     ],
     templateUrl: './listar-habito.component.html',
     styleUrl: './listar-habito.component.scss',
@@ -54,7 +60,6 @@ export class ListarHabitoComponent implements OnInit {
     }
 
     editarHabito(id: any) {
-        console.log(id);
         this.router.navigate(['dashboard/editar-habito', id]);
     }
 
@@ -91,8 +96,7 @@ export class ListarHabitoComponent implements OnInit {
             accept: () => {
                 this.deletarHabito(id);
             },
-            reject: () => {
-            },
+            reject: () => {},
         });
     }
 
@@ -100,5 +104,15 @@ export class ListarHabitoComponent implements OnInit {
         return Object.keys(obj).map(function (key) {
             return obj[key];
         });
+    }
+
+    getSeverity(status: any) {
+        if (status === "Verdadeiro") {
+            return 'success';
+        } else if (status == "Falso") {
+            return 'warning';
+        } else {
+            return 'info';
+        }
     }
 }

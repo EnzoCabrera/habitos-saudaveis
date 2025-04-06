@@ -25,23 +25,30 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 5%">#</th>
                 <th style="width: 20%">Nome</th>
                 <th style="width: 20%">Frequência</th>
                 <th style="width: 20%">Período</th>
+                <th style="width: 20%">Status</th>
                 <th style="width: 20%">Ações</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-habito let-ri="rowIndex">
             <tr>
-                <td>{{ habito.id }}</td>
                 <td>{{ habito.nome_habito }}</td>
                 <td>{{ habito.frequencia }}</td>
                 <td>{{ habito.periodo }}</td>
                 <td>
+                    <p-tag
+                        [value]="habito.completed | status"
+                        [severity]="getSeverity(habito.completed)"
+                    ></p-tag>
+                </td>
+                <td>
                     <button
                         pButton
                         pRipple
+                        pTooltip="Editar"
+                        tooltipPosition="top"
                         type="button"
                         icon="pi pi-pencil"
                         class="p-button-rounded p-button-text"
@@ -50,6 +57,8 @@
                     <button
                         pButton
                         pRipple
+                        pTooltip="Excluir"
+                        tooltipPosition="top"
                         type="button"
                         icon="pi pi-trash"
                         class="p-button-rounded p-button-text"
