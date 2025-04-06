@@ -3,17 +3,19 @@ import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
 import { AuthService } from '../view/components/auth/services/auth.service';
 import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-menu',
     templateUrl: './app.menu.component.html',
     styles: [
-        `:host ::ng-deep .layout-menu {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+        `
+            :host ::ng-deep .layout-menu {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
         `,
     ],
 })
@@ -24,7 +26,9 @@ export class AppMenuComponent implements OnInit {
     constructor(
         public layoutService: LayoutService,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
     ) {}
 
     ngOnInit() {
@@ -52,7 +56,9 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Deletar conta',
                         icon: 'pi pi-user-minus',
-                        routerLink: ['#'],
+                        command: () => {
+                            this.confirmarDelecaoConta();
+                        },
                     },
                     {
                         label: 'Sair',
@@ -74,9 +80,28 @@ export class AppMenuComponent implements OnInit {
     deletarConta() {
         this.authService.deletarConta(this.authService.getToken()).subscribe({
             next: (response) => {
+                console.log(response);
                 this.authService.logout();
                 this.router.navigate(['auth/signup']);
             },
+        });
+    }
+
+    confirmarDelecaoConta() {
+        this.confirmationService.confirm({
+            //target: event.target as EventTarget,
+            message: 'Tem certeza que deseja deletar sua conta?',
+            header: 'Deletar conta',
+            icon: 'pi pi-exclamation-triangle',
+            acceptIcon: 'none',
+            acceptLabel: 'Sim',
+            rejectIcon: 'none',
+            rejectLabel: 'Não',
+            rejectButtonStyleClass: 'p-button-outlined',
+            accept: () => {
+                this.deletarConta();
+            },
+            reject: () => {},
         });
     }
 }

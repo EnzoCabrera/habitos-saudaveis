@@ -1,23 +1,55 @@
+<p-confirmDialog />
+
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="/dashboard">
-        <img src="../../assets/config/logo-text-horizontal.png" alt="Habit Tracker logo">
+        <img
+            src="../../assets/config/logo-text-horizontal.png"
+            alt="Habit Tracker logo"
+        />
     </a>
 
-    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+    <button
+        #menubutton
+        class="p-link layout-menu-button layout-topbar-button"
+        (click)="layoutService.onMenuToggle()"
+    >
         <i class="pi pi-bars"></i>
     </button>
 
-    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+    <button
+        #topbarmenubutton
+        class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar()"
+    >
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button class="p-link layout-topbar-button" severity="danger" (click)="deletarConta()">
+    <div
+        #topbarmenu
+        class="layout-topbar-menu"
+        [ngClass]="{
+            'layout-topbar-menu-mobile-active':
+                layoutService.state.profileSidebarVisible
+        }"
+    >
+        <button
+            class="p-link layout-topbar-button"
+            severity="danger"
+            pTooltip="Deletar conta"
+            tooltipPosition="bottom"
+            (click)="confirmarDelecaoConta($event)"
+        >
             <i class="pi pi-user-minus"></i>
             <span>Deletar conta</span>
         </button>
 
-        <button class="p-link layout-topbar-button" [routerLink]="'/auth/login'" (click)="logout()">
+        <button
+            class="p-link layout-topbar-button"
+            [routerLink]="'/auth/login'"
+            pTooltip="Sair"
+            tooltipPosition="bottom"
+            (click)="logout()"
+        >
             <i class="pi pi-sign-out"></i>
             <span>Sair</span>
         </button>
